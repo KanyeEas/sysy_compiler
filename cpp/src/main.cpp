@@ -23,6 +23,7 @@ int main(int argc, char** argv) {
     input_path = argv[1];
   }
 
+  // 读取源代码
   std::ifstream in(input_path);
   if (!in) {
     std::cerr << "error: cannot open file: " << input_path << "\n";
@@ -32,6 +33,7 @@ int main(int argc, char** argv) {
   ss << in.rdbuf();
   const std::string source = ss.str();
 
+  // 前端: 词法分析和语法分析
   Lexer lex(source);
   Parser parser(std::move(lex));
   auto ast = parser.parse();
@@ -40,6 +42,7 @@ int main(int argc, char** argv) {
     return 1;
   }
 
+  // 后续阶段：根据开关输出 IR 或 RISC-V
   if (mode == "ir") {
     std::cout << emit_ir_return_const(ast->value);
   } else if (mode == "asm") {

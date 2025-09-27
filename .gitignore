@@ -36,3 +36,4 @@ Temporary Items
 # Build & Debug
 build
 debug
+cpp/.cache
